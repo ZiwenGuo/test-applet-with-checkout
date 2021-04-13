@@ -21,11 +21,12 @@ console.log(window)
 console.log(window.FBInstant)
 
 window.FBInstant.initializeAsync()
-  .then(() => {
-    return window.FBInstant.startGameAsync();
+  .then(function() {
+    console.log('initializeAsync resolved')
+    window.FBInstant.startGameAsync().then(startApp)
   })
-  .then(startApp)
   .catch((err) => {
+    console.log('----error-----')
     console.log(err);
   });
 
