@@ -44,7 +44,36 @@ class AppContainer extends React.Component {
               <Button
                 variant="primary"
                 onClick={(e) => {
-                  console.log(this.state.cartItemCount);
+                  console.log("cart item count: " + this.state.cartItemCount);
+                  window.FBApplet.setCheckoutItemCount(parseInt(this.state.cartItemCount))
+                    .then(function (value) {
+                      let outputDiv = document.getElementById("output");
+                      let div = document.createElement("div");
+                      div.innerText =
+                        "cart item count is set to " + value.itemCount;
+                      div.style.color = "green";
+                      outputDiv.append(div);
+                      setTimeout(
+                        function () {
+                          div.remove();
+                        }.bind(this, div),
+                        3000
+                      );
+                    }.bind(this))
+                    .reject(function () {
+                      let outputDiv = document.getElementById("output");
+                      let div = document.createElement("div");
+                      div.innerText =
+                        "failed to set cart item count";
+                      div.style.color = "red";
+                      outputDiv.append(div);
+                      setTimeout(
+                        function () {
+                          div.remove();
+                        }.bind(this, div),
+                        3000
+                      );
+                    }.bind(this));
                 }}
               >
                 Set Cart Item Count
@@ -77,7 +106,36 @@ class AppContainer extends React.Component {
               <Button
                 variant="primary"
                 onClick={(e) => {
-                  console.log(this.state.checkoutUrl);
+                  console.log("checkout url: " + this.state.checkoutUrl);
+                  window.FBApplet.setCheckoutUrl(this.state.checkoutUrl)
+                    .then(function (value) {
+                      let outputDiv = document.getElementById("output");
+                      let div = document.createElement("div");
+                      div.innerText =
+                        "checkout url is set to " + value.url;
+                      div.style.color = "green";
+                      outputDiv.append(div);
+                      setTimeout(
+                        function () {
+                          div.remove();
+                        }.bind(this, div),
+                        3000
+                      );
+                    }.bind(this))
+                    .reject(function () {
+                      let outputDiv = document.getElementById("output");
+                      let div = document.createElement("div");
+                      div.innerText =
+                        "failed to set checkout url";
+                      div.style.color = "red";
+                      outputDiv.append(div);
+                      setTimeout(
+                        function () {
+                          div.remove();
+                        }.bind(this, div),
+                        3000
+                      );
+                    }.bind(this));
                 }}
               >
                 {" "}
@@ -87,6 +145,7 @@ class AppContainer extends React.Component {
             <Col></Col>
           </Row>
         </Form>
+        <div id="output"></div>
       </Container>
     );
   }

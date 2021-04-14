@@ -11,24 +11,26 @@ import reportWebVitals from "./reportWebVitals";
   }
   var sdk = document.createElement("script")
   sdk.id = "applet-js-sdk"
-  //sdk.src = "https://connect.facebook.net/en_US/fbapplet.latest.js";
-  sdk.src = 'https://www.facebook.com/assets.php/en_US/fbinstant.latest.js'
+  sdk.src = "https://connect.facebook.net/en_US/fbapplet.latest.js";
+  sdk.onload = initializeApp;
   firstScript.parentNode.insertBefore(sdk, firstScript)
-  console.log('sdk inserted')
 })();
 
-console.log(window)
-console.log(window.FBInstant)
+function initializeApp() {
+  console.log('sdk loaded')
+  window.FBApplet.initializeAsync()
+    .then(function() {
+      console.log('initializeAsync resolved')
+      window.FBApplet.startAppletAsync().then(function() {
+        console.log('startAppletAsync resolved')
+        startApp()
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
-window.FBInstant.initializeAsync()
-  .then(function() {
-    console.log('initializeAsync resolved')
-    window.FBInstant.startGameAsync().then(startApp)
-  })
-  .catch((err) => {
-    console.log('----error-----')
-    console.log(err);
-  });
 
 function startApp() {
   console.log('start app')
