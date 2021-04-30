@@ -60,11 +60,11 @@ class AppContainer extends React.Component {
                         3000
                       );
                     }.bind(this))
-                    .reject(function () {
+                    .catch(function (reason) {
                       let outputDiv = document.getElementById("output");
                       let div = document.createElement("div");
                       div.innerText =
-                        "failed to set cart item count";
+                        "Failed to set cart item count. Error message: " + reason.message;
                       div.style.color = "red";
                       outputDiv.append(div);
                       setTimeout(
@@ -122,11 +122,11 @@ class AppContainer extends React.Component {
                         3000
                       );
                     }.bind(this))
-                    .reject(function () {
+                    .catch(function (reason) {
                       let outputDiv = document.getElementById("output");
                       let div = document.createElement("div");
                       div.innerText =
-                        "failed to set checkout url";
+                        "Failed to set checkout url. Error message: " + reason.message;
                       div.style.color = "red";
                       outputDiv.append(div);
                       setTimeout(
